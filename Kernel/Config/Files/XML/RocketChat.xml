@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otobo_config version="2.0" init="Application">
+  <Setting Name="Ticket::Frontend::MenuModule###500-RocketChat" Required="0" Valid="1">
+    <Description Translatable="1">Shows a link to create a RocketChat Channel for a specific Ticket in the Miscellaneous Menu.</Description>
+    <Navigation>Frontend::Agent::View::TicketZoom::MenuModule</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Module">Kernel::Output::HTML::TicketMenu::RocketChat</Item>
+        <Item Key="Action">AgentTicketRocketChat</Item>
+        <Item Key="Name" Translatable="1">Open RocketChat</Item>
+        <Item Key="Description" Translatable="1">Open / Close a RocketChat channel for this ticket</Item>
+        <Item Key="ClusterName" Translatable="1"></Item>
+        <Item Key="ClusterPriority"></Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AgentTicketRocketChat" Required="0" Valid="1">
+    <Description Translatable="1"></Description>
+    <Navigation>Frontend::Agent::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="Description" Translatable="1">RocketChat Channel Handling</Item>
+          <Item Key="Title" Translatable="0">RocketChat</Item>
+          <Item Key="NavBarName">Ticket</Item>
+          <Item Key="Group">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::Module###AdminRocketChat" Required="0" Valid="1">
+    <Description Translatable="1">Frontend module registration for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration</Navigation>
+    <Value>
+      <Item ValueType="FrontendRegistration">
+        <Hash>
+          <Item Key="GroupRo">
+            <Array>
+            </Array>
+          </Item>
+          <Item Key="Group">
+            <Array>
+              <Item>admin</Item>
+            </Array>
+          </Item>
+          <Item Key="Description">Admin</Item>
+          <Item Key="Title">RocketChat Extension Configuration GUI</Item>
+          <Item Key="NavBarName">Admin</Item>
+        </Hash>
+      </Item>
+    </Value>
+  </Setting>
+  <Setting Name="Frontend::NavigationModule###AdminRocketChat" Required="0" Valid="1">
+    <Description Translatable="1">Admin area navigation for the agent interface.</Description>
+    <Navigation>Frontend::Admin::ModuleRegistration::AdminOverview</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Group">
+          <Array>
+            <Item>admin</Item>
+          </Array>
+        </Item>
+        <Item Key="GroupRo">
+          <Array>
+          </Array>
+        </Item>
+        <Item Key="Module">Kernel::Output::HTML::NavBar::ModuleAdmin</Item>
+        <Item Key="Name" Translatable="1">Rocket.Chat</Item>
+        <Item Key="Block">Communication</Item>
+        <Item Key="Description" Translatable="1">Configure the Rocket.Chat Extension.</Item>
+        <Item Key="IconBig"></Item>
+        <Item Key="IconSmall"></Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::Lookup" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat User Lookup Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">Lookup</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::RoomExists" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Room Exists Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">RoomExists</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::GroupCreate" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Group Create Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">GroupCreate</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::GroupAddOwner" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Group Add Owner Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">GroupAddOwner</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::GroupInvite" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Group Invite Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">GroupInvite</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::GroupMemberOf" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Group Member Of Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">GroupMemberOf</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::GroupMembers" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Group Members Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">GroupMembers</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::GroupSetAnnouncement" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Group Set Announcement invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">GroupAddOwner</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::Login" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Login Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">Login</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::Logout" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat Logout Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">Logout</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="GenericInterface::Invoker::Module###RocketChat::UserInfo" Valid="1" Required="0">
+    <Description Translatable="1">Module Registration for RocketChat UserInfo Invoker.</Description>
+    <Navigation>GenericInterface::Invoker::ModuleRegistration</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="Name">UserInfo</Item>
+        <Item Key="Controller">RocketChat</Item>
+        <Item Key="ConfigDialog">AdminGenericInterfaceInvokerDefault</Item>
+      </Hash>
+    </Value>
+  </Setting>
+</otobo_config>

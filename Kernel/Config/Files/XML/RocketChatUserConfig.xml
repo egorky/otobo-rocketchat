@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<otobo_config version="2.0" init="Application">
+  <Setting Name="Core::RocketChat###0001-General" Required="0" Valid="0">
+    <Description Translatable="1">General configuration of the Rocket.Chat OTOBO extension's behavior.</Description>
+    <Navigation>Core::RocketChat</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="ChannelPrefix" ValueType="String">otobo-chat-ticket-</Item>
+        <Item Key="InviteUsers" ValueType="Checkbox">0</Item>
+        <Item Key="UserDiscoveryType" ValueType="Select" SelectedID="Email">
+            <Item ValueType="Option" Value="Email" Translatable="1">Email</Item>
+            <Item ValueType="Option" Value="Username" Translatable="1">Username</Item>
+        </Item>
+        <Item Key="IncludeArticleEmails" ValueType="Checkbox">0</Item>
+        <Item Key="IncludeHiddenEmails" ValueType="Checkbox">0</Item>
+        <Item Key="IncludeCcEmails" ValueType="Checkbox">0</Item>
+        <Item Key="DynamicTicketMenu" ValueType="Checkbox">1</Item>
+      </Hash>
+    </Value>
+  </Setting>
+  <Setting Name="Core::RocketChat###0010-Webservice" Required="0" Valid="0">
+    <Description Translatable="1">
+      Configuration for the Webservice used by the Rocket.Chat extension.
+      Note that this Config does not directly influence the behavior of
+      the Webservice, but is used to (re)create the Webservice by the
+      Rocket.Chat Admin module. Changes made here only affect the Webservice
+      when using the Admin module to apply them.
+    </Description>
+    <Navigation>Core::RocketChat</Navigation>
+    <Value>
+      <Hash>
+        <Item Key="WebserviceID"></Item>
+      </Hash>
+    </Value>
+  </Setting>
+</otobo_config>

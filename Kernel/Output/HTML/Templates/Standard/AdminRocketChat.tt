@@ -1,0 +1,316 @@
+# --
+# Copyright © 2020 Lukas Epple, Universität Augsburg
+# --
+# This software comes with ABSOLUTELY NO WARRANTY. For details, see
+# the enclosed file COPYING for license information (GPL). If you
+# did not receive this file, see https://www.gnu.org/licenses/gpl-3.0.txt.
+# --
+
+<div class="MainBox ARIARoleMain LayoutFixedSidebar SidebarFirst">
+    <h1 class="InvisibleText">[% Translate('Configure Rocket.Chat Extension') | html %]</h1>
+    [% BreadcrumbPath = [
+            {
+                Name => Translate('Configure Rocket.Chat Extension'),
+                Link => Env('Action'),
+            },
+        ]
+    %]
+
+    [% SWITCH Data.Subaction %]
+        [% CASE 'SetupWebservice' %]
+            [% BreadcrumbPath.push({ Name => Translate('Setup Rocket.Chat Webservice')}) %]
+        [% CASE 'DeleteWebservice' %]
+            [% BreadcrumbPath.push({ Name => Translate('Delete Rocket.Chat Webservice')}) %]
+    [% END %]
+
+    [% INCLUDE "Breadcrumb.tt" Path = BreadcrumbPath %]
+
+    <div class="SidebarColumn">
+[% RenderBlockStart("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Actions") | html %]</h2>
+            </div>
+            <div class="Content">
+                <ul class="ActionList">
+[% RenderBlockStart("ActionChange") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %]" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-caret-left"></i>[% Translate("Configure Rocket.Chat Extension") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionChange") %]
+[% RenderBlockStart("ActionSetupWebservice") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=SetupWebservice" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-plus-square"></i>[% Translate("Setup Rocket.Chat Webservice") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionSetupWebservice") %]
+[% RenderBlockStart("ActionDeleteWebservice") %]
+                    <li>
+                        <a href="[% Env("Baselink") %]Action=[% Env("Action") %];Subaction=DeleteWebservice" class="CallForAction Fullsize Center">
+                            <span><i class="fa fa-trash-o"></i>[% Translate("Delete Rocket.Chat Webservice") | html %]</span>
+                        </a>
+                    </li>
+[% RenderBlockEnd("ActionDeleteWebservice") %]
+                </ul>
+            </div>
+        </div>
+[% RenderBlockEnd("ActionList") %]
+        <div class="WidgetSimple">
+            <div class="Header">
+                <h2>[% Translate("Hint") | html %]</h2>
+            </div>
+            <div class="Content">
+                <p class="FieldExplanation">
+                    [% Translate("Don't use the Webservice Management to change the Webservice created here, since it might break the Rocket.Chat extension. If you need to change something, delete and re-create the Webservice here instead.") | html %]
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="ContentColumn">
+        <div class="WidgetSimple">
+[% RenderBlockStart("Change") %]
+            <div class="Header">
+                <h2>[% Translate("Configure Rocket.Chat Extension") | html %]</h2>
+            </div>
+            <div class="Content">
+[% RenderBlockStart("ChangeRequireSetup") %]
+                <p>[% Translate("The Rocket.Chat Webservice hasn't been set up. To begin, use the button on the left to configure OTOBO's connection to your Rocket.Chat instance.") | html %]</p>
+[% RenderBlockEnd("ChangeRequireSetup") %]
+[% RenderBlockStart("ChangeForm") %]
+                <form action="[% Env("CGIHandle") %]" method="post" class="PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="ChangeAction"/>
+                    <h3 class="SpacingBottom">[% Translate("Activation") | html %]</h3>
+                    <p class="FieldExplanation">
+                        [% Translate("You can manually enable and disable the extension when it is installed. If you have enabled the extension and it does not show here that it is fully configured, there is an error with its configuration and it consequently is not active. In such a situation try recreating the Webservice which is usually the cause of such a situation.") | html %]
+                    <fieldset class="TableLike">
+                        <label for="Enable">
+                            [% Translate("Extension Enabled") | html %]
+                        </label>
+                        <div class="Field">
+                            <input id="Enable" name="Enable" type="checkbox"
+                            [%- IF Data.Enable -%]
+                            checked
+                            [%- END %]/>
+                        </div>
+                        [% IF Data.Enable -%]
+                        <label for="Active">
+                            [% Translate("Extension Fully Configured") | html %]
+                        </label>
+                        <div class="Field">
+                            <input id="Active" name="Active" readonly disabled type="checkbox"
+                            [%- IF Data.Active -%]
+                            checked
+                            [%- END %]/>
+                        </div>
+                        [%- END %]
+                        [% IF Data.Active -%]
+                        <label for="UsedWebservice">
+                            [% Translate("Used Webservice") | html %]
+                        </label>
+                        <div class="Field">
+                            <a id="UsedWebservice" href="[% Env("Baselink") %]Action=AdminGenericInterfaceWebservice;Subaction=Change;WebserviceID=[% Data.WebserviceID %]">
+                                Webservice [% Data.WebserviceID %]
+                            </a>
+                        </div>
+                        [%- END %]
+                    </fieldset>
+                    <h3 class="SpacingTop SpacingBottom">[% Translate("Channel Creation") | html %]</h3>
+                    <p class="FieldExplanation">
+                        [% Translate("Channels created by this extension are named by concatenating a channel prefix configured here with the ticket ID of the corresponding OTOBO ticket, i. e. channel prefix \"uni-augsburg-\" and ticket ID 30017 would result in the channel name \"uni-augsburg-30017\".") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                        <label for="ChannelPrefix">
+                            [% Translate("Channel Prefix") | html %]
+                        </label>
+                        <div class="Field">
+                            <input id="ChannelPrefix" name="ChannelPrefix" value="[% Data.ChannelPrefix %]" type="text" class="W25pc"/>
+                        </div>
+                    </fieldset>
+                    <p class="FieldExplanation">
+                        [% Translate("The Rocket.Chat extension can either add all involved users to the group in the creation process or invite them directly afterwards. Since invites currently don't have to be accepted in Rocket.Chat, this only makes a slight difference: The former takes less API calls, but the latter has a slightly better user experience since users will be notified that they have been added to a group.") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                        <label for="InviteUsers">
+                            [% Translate("User Addition Method") | html %]
+                        </label>
+                        <div class="Field">
+                            [% Data.InviteUsersSelection %]
+                        </div>
+                    </fieldset>
+                    </fieldset>
+                    <h3 class="SpacingBottom SpacingTop">[% Translate("User Discovery") | html %]</h3>
+                    <p class="FieldExplanation">
+                        [% Translate("The Rocket.Chat extension has two methods of finding matching Rocket.Chat users for OTOBO users: Either the OTOBO usernames or the email addresses stored in OTOBO can be used to search for matching Rocket.Chat users. The latter however requires additional privileges for the configured Rocket.Chat “bot” user.") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                      <label for="UserDiscoveryType">
+                        [% Translate("User Discovery Method") | html %]
+                      </label>
+                      <div class="Field">
+                        [% Data.UserDiscoverySelection %]
+                      </div>
+                    </fieldset>
+                    <h3 class="SpacingBottom SpacingTop">[% Translate("Email User Discovery Rules") | html %]</h4>
+                    <p class="FieldExplanation">
+                        [% Translate("Regardless of the user discovery method, the ticket owner, customer and all involved agents will be added to any created Rocket.Chat group. If email discovery is used, the extension can additionally check all messages belonging to the ticket for email addresses not previously discovered. You can enable and configure this behavior here.") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                        <label for="IncludeArticleEmails">
+                            [% Translate("Include Users from associated Email messages?") | html %]
+                        </label>
+                        <div class="Field">
+                            <input id="IncludeArticleEmails" name="IncludeArticleEmails" type="checkbox"
+                            [%- IF Data.IncludeArticleEmails -%]
+                            checked
+                            [%- END %]/>
+                        </div>
+                        <label for="IncludeCcEmails">
+                            [% Translate("Search the Cc header of Emails?") | html %]
+                        </label>
+                        <div class="Field">
+                            <input id="IncludeCcEmails" name="IncludeCcEmails" type="checkbox"
+                            [%- IF Data.IncludeCcEmails -%]
+                            checked
+                            [%- END %]/>
+                        </div>
+                        <label for="IncludeHiddenEmails">
+                            [% Translate("Search Emails hidden to the Customer?") | html %]
+                        </label>
+                        <div class="Field">
+                            <input id="IncludeHiddenEmails" name="IncludeHiddenEmails" type="checkbox"
+                            [%- IF Data.IncludeHiddenEmails -%]
+                            checked
+                            [%- END %]/>
+                        </div>
+                    </fieldset>
+                    <h3 class="SpacingTop SpacingBottom">[% Translate("Ticket Menu Entry") | html %]</h3>
+                    <p class="FieldExplanation">
+                      [% Translate("When a ticket is viewed in OTOBO, by default the Rocket.Chat extension will check if a corresponding channel exists and adjust the text of the menu item accordingly. While this is convenient, it has a performance cost since the Rocket.Chat API must be queried for this. If this impact is too severe (e. g. if your Rocket.Chat instance is unreliable or slow), you can disable this here and use a static menu entry instead.") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                      <label for="DynamicTicketMenu">
+                        [% Translate("Enable Dynamic Ticket Menu Entry?") | html %]
+                      </label>
+                      <div class="Field">
+                        <input id="DynamicTicketMenu" name="DynamicTicketMenu" type="checkbox"
+                        [%- IF Data.DynamicTicketMenu -%]
+                        checked
+                        [%- END %]/>
+                      </div>
+                    </fieldset>
+                    <h3 class="SpacingTop SpacingBottom">[% Translate("Permissions") | html %]</h3>
+                    <p class="FieldExplanation">
+                        [% Translate("Only the ticket owner can open a Rocket.Chat channel and will be made channel owner as well. A link to an already created channel is shown to anyone able to access the ticket, the channel however can only be viewed by users automatically or manually added to it as it is created as a private group.") | html %]
+                    </p>
+                    <h3 class="SpacingTop SpacingBottom">[% Translate("Save") | html %]</h3>
+                    <fieldset class="TableLike">
+                        <div class="Field SpacingTop">
+                            <button class="Primary CallForAction" id="Submit" name="Submit" type="submit" value="Save" %]"><span>[% Translate("Save") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]"><span>[% Translate("Cancel") | html %]</span></a>
+                        </div>
+                    </fieldset>
+                </form>
+[% RenderBlockEnd("ChangeForm") %]
+            </div>
+[% RenderBlockEnd("Change") %]
+[% RenderBlockStart("SetupWebservice") %]
+            <div class="Header">
+                <h2>[% Translate("Setup Rocket.Chat Webservice") | html %]</h2>
+            </div>
+            <div class="Content">
+[% RenderBlockStart("SetupWebserviceExists") %]
+                <p>[% Translate("Rocket.Chat Webservice already exists! Delete it to setup a new one.") | html %]</p>
+[% RenderBlockEnd("SetupWebserviceExists") %]
+[% RenderBlockStart("SetupWebserviceForm") %]
+                <form action="[% Env("CGIHandle") %]" method="post" class="Validate PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="SetupWebserviceAction"/>
+                    <h3 class="SpacingBottom">[% Translate("General") | html %]</h3>
+                    <p class="FieldExplanation">
+                        [% Translate("The API URL is typically the base URL of your Rocket.Chat instance plus \"/api/v1/\", e. g. \"https://open.rocket.chat/api/v1/\".") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                        <label for="BaseUrl" class="Mandatory">
+                            <span class="Marker">*</span>
+                            [% Translate("Base URL") | html %]:
+                        </label>
+                        <div class="Field">
+                            <input id="BaseUrl" name="BaseUrl" type="text" class="W50pc Validate_Required"/>
+                            <div id="NameError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <label for="APIUrl" class="Mandatory">
+                            <span class="Marker">*</span>
+                            [% Translate("API URL") | html %]:
+                        </label>
+                        <div class="Field">
+                            <input id="APIUrl" name="APIUrl" type="text" class="W50pc Validate_Required"/>
+                            <div id="NameError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                    </fieldset>
+                    <h3 class="SpacingBottom SpacingTop">[% Translate("Rocket.Chat Credentials") | html %]</h3>
+                    <p class="FieldExplanation">
+                        [% Translate("We need the credentials of an admin account to be used by the Rocket.Chat OTOBO extension. It will be part of all chat groups created by it, so it makes sense to create an OTOBO-specific bot account for this purpose. The credentials won't be stored permanently, instead they are used to obtain an “Authentication Token” which is then stored.") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                        <label for="Username" class="Mandatory">
+                            <span class="Marker">*</span>
+                            [% Translate("Username") | html %]:
+                        </label>
+                        <div class="Field">
+                            <input id="Username" name="Username" type="text" class="W50pc Validate_Required"/>
+                            <div id="NameError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <label for="Password" class="Mandatory">
+                            <span class="Marker">*</span>
+                            [% Translate("Password") | html %]:
+                        </label>
+                        <div class="Field">
+                            <input id="Password" name="Password" type="password" class="W50pc Validate_Required"/>
+                            <div id="NameError" class="TooltipErrorMessage"><p>[% Translate("This field is required.") | html %]</p></div>
+                        </div>
+                        <div class="Field SpacingTop">
+                            <button class="Primary CallForAction" id="Submit" type="submit" value="[% Translate("Save and Finish") | html %]"><span>[% Translate("Save and Finish") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]"><span>[% Translate("Cancel") | html %]</span></a>
+                        </div>
+                    </fieldset>
+                </form>
+[% RenderBlockEnd("SetupWebserviceForm") %]
+            </div>
+[% RenderBlockEnd("SetupWebservice") %]
+[% RenderBlockStart("DeleteWebservice") %]
+            <div class="Header">
+                <h2>[% Translate("Delete Rocket.Chat Webservice") | html %]</h2>
+            </div>
+            <div class="Content">
+[% RenderBlockStart("DeleteWebserviceDoesntExist") %]
+                <p>
+                    [% Translate("Can't delete any Rocket.Chat Webservice since none exists.") | html %]
+                </p>
+[% RenderBlockEnd("DeleteWebserviceDoesntExist") %]
+[% RenderBlockStart("DeleteWebserviceForm") %]
+                <form action="[% Env("CGIHandle") %]" method="post" class="PreventMultipleSubmits">
+                    <input type="hidden" name="Action" value="[% Env("Action") %]"/>
+                    <input type="hidden" name="Subaction" value="DeleteWebserviceAction"/>
+                    <p class="FieldExplanation">
+                        [% Translate("If you delete the Rocket.Chat webservice, users will lose the ability to create or jump to Rocket.Chat Channels directly from OTOBO. No existing Rocket.Chat channels will be deleted and all settings except connection details and credentials will persist.") | html %]
+                    </p>
+                    <fieldset class="TableLike">
+                        <div class="Field SpacingTop">
+                            <button class="Primary CallForAction" id="Submit" name="Submit" type="submit" value="Delete"><span>[% Translate("Delete") | html %]</span></button>
+                            [% Translate("or") | html %]
+                            <a href="[% Env("Baselink") %]Action=[% Env("Action") %]"><span>[% Translate("Cancel") | html %]</span></a>
+                        </div>
+                    </fieldset>
+                </form>
+[% RenderBlockEnd("DeleteWebserviceForm") %]
+            </div>
+[% RenderBlockEnd("DeleteWebservice") %]
+        </div>
+    </div>
+</div>

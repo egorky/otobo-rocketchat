@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<otobo_package version="1.0">
+  <Name>otobo-rocketchat</Name>
+  <Version>0.1.0</Version>
+  <Framework>10.0.x</Framework>
+  <Vendor>Universität Augsburg FAI</Vendor>
+  <URL>https://git.rz.uni-augsburg.de/itinfo-h/otrs-rocketchat</URL>
+  <License>GNU General Public License Version 3, 29 June 2007</License>
+  <ChangeLog Version="0.1.0" Date="2020-04-30 12:37:00">
+      Fifth Unstable Pre-Release for Testing Purposes.
+
+      This release ports otrs-rocketchat from OTRS 6 to
+      OTOBO 10.0. Thus the project is renamed to
+      otobo-rocketchat as well.
+  </ChangeLog>
+  <ChangeLog Version="0.0.4" Date="2020-04-30 10:07:00">
+      Fourth Unstable Pre-Release for Testing Purposes.
+
+      This release refactors internal URL construction.
+
+      Last release compatible with OTRS 6. Future Releases
+      will target OTOBO.
+  </ChangeLog>
+  <ChangeLog Version="0.0.3" Date="2020-12-02 16:29:37">
+      Third Unstable Pre-Release for Testing Purposes.
+
+      This releases a bug where the ticket menu entry
+      linking a created Rocket.Chat channel would be
+      hidden from everyone but the ticket owner.
+  </ChangeLog>
+  <ChangeLog Version="0.0.2" Date="2020-11-19 14:28:42">
+      Second Unstable Pre-Release for Testing Purposes.
+
+      Adds option to invite users to created channels instead of adding
+      them directly and new user discovery method using username matching
+      instead of email matching which requires less permissions in Rocket.Chat.
+      Also generally reduces required permissions. For details see
+      otobo-rocketchat/README.md in the source archive/repository.
+  </ChangeLog>
+  <ChangeLog Version="0.0.1" Date="2020-09-07 12:42:13">
+      Unstable Pre-Release for Testing Purposes
+  </ChangeLog>
+  <Description Lang="en">
+    Rocket.Chat Integration for OTOBO, allowing to create Channels for specific Tickets
+  </Description>
+  <Description Lang="de">
+    Rocket.Chat-Integration für OTOBO, ermöglicht Ticket-spezifische Chats aus der OTOBO-Oberfläche zu erstellen.
+  </Description>
+  <PackageRequired Version="0.1.0">requester-headers</PackageRequired>
+  <Filelist>
+    <File Permission="644" Location="Kernel/Modules/AgentTicketRocketChat.pm"></File>
+    <File Permission="644" Location="Kernel/Modules/AdminRocketChat.pm"></File>
+    <File Permission="644" Location="Kernel/Output/HTML/TicketMenu/RocketChat.pm"></File>
+    <File Permission="644" Location="Kernel/Output/HTML/Templates/Standard/AdminRocketChat.tt"></File>
+    <File Permission="644" Location="Kernel/System/RocketChat.pm"></File>
+    <File Permission="644" Location="Kernel/System/RocketChat/Util.pm"></File>
+    <File Permission="644" Location="Kernel/Config/Files/XML/RocketChatUserConfig.xml"></File>
+    <File Permission="644" Location="Kernel/Config/Files/XML/RocketChat.xml"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/RoomExists.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/GroupCreate.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/GroupAddOwner.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/GroupInvite.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/GroupMembers.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/GroupMemberOf.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/GroupSetAnnouncement.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/Login.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/Logout.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/Lookup.pm"></File>
+    <File Permission="644" Location="Kernel/GenericInterface/Invoker/RocketChat/UserInfo.pm"></File>
+    <File Permission="644" Location="Kernel/Language/de_RocketChat.pm"></File>
+  </Filelist>
+</otobo_package>
